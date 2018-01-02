@@ -7,17 +7,6 @@ function rollDice(numberOfSides) {
 	return diceResult;
 }
 
-function getNumberOfSides() {
-	var numberOfSides = prompt(
-		"Selec one of the following dice:\n" +
-		"- Press 4 for a 4-sided dice.\n" +
-		"- Press 6 for a 6-sided dice.\n" +
-		"- Press 8 for a 8-sided dice.\n" +
-		"- Press 10 for a 10-sided dice.\n" +
-		"- Press 12 for a 12-sided dice.\n" +
-		"- Press 20 for a 20-sided dice.\n");
-	return parseInt(numberOfSides);
-}
 
 function rollMultipleDize(numberOfSides, numberOfDice) {
 	var rollResults = [];
@@ -59,12 +48,27 @@ function fullDiceGame() {
 				
 				
 			}
-
-			if (player === 1) {
-				playerScores1.push(getRoundScore(finalResult));
+			var roundScore;
+			if (currentDiceIndex < 2) {
+				roundScore = getRoundScore(finalResult);
 			}
 			else {
-				playerScores2.push(getRoundScore(finalResult));	
+				if (diceSizes[currentDiceIndex] === 8) {
+					roundScore = getRoundScoreModulo(finalResult,4);
+				}
+				else if (diceSizes[currentDiceIndex] === 12) {
+					roundScore = getRoundScoreModulo(finalResult,6);	
+				}
+				else{
+					roundScore = getRoundScoreModulo(finalResult,5);
+				}
+			}
+
+			if (player === 1) {
+				playerScores1.push(roundScore);
+			}
+			else {
+				playerScores2.push(roundScore);	
 			}
 		}
 
@@ -79,10 +83,25 @@ function fullDiceGame() {
 		}
 
 	}
-
+	var player1TotalScore = playerScores1.reduce(function(sum,score){
+			return sum + score;
+	});
+	var player2TotalScore = playerScores2.reduce(function(sum,score){
+			return sum + score;
+	});
+	console.log("Player 1 Scores Are:");
 	console.log(playerScores1);
+	console.log("Player 2 Scores Are:");
 	console.log(playerScores2);
-	console.log(winnerOfRounds);
+	if (player1TotalScore == player2TotalScore) {
+		console.log("The game is TIED!!!");
+	}
+	else if (player1TotalScore > player2TotalScore) {
+		console.log("Player 1 is the WINNER");
+	}
+	else {
+		console.log("Player 2 is the WINNER");
+	}
 }
 
 function rollAgain(diceRoll,player,diceSize) {
@@ -160,8 +179,52 @@ function getRoundScore(finalResult) {
 	}
 	return roundScore
 }
+function getRoundScoreModulo(finalResult,modulo) {
+	var finalResultModulo = finalResult.map(function(diceResult){
+		if (diceResult % modulo === 0) {
+			return modulo
+		}
+		else {
+			return diceResult % modulo
+		};
+	})
+	var orderedResult = finalResultModulo.sort(function(a,b) {return a - b});
+	var diceValue = [];
+	var frequencyOfValue = [];
+	var previousDiceValue;
+	var roundScore;
+	for (var diceIndex in orderedResult) {
+		if (orderedResult[diceIndex] !== previousDiceValue) {
+			diceValue.push(orderedResult[diceIndex]);
+			frequencyOfValue.push(1);
+		}
+		else {
+			frequencyOfValue[frequencyOfValue.length - 1] ++;
+		}
+		previousDiceValue = orderedResult[diceIndex];
+	}
+	if (diceValue[0] != 1) {
+		roundScore = 0;
+	}
+	else{
+		var value = diceValue[1];
+		var frequency = frequencyOfValue[1];
+		for(var frequencyIndex = 2; frequencyIndex < diceValue.length; frequencyIndex++) {
+			if (frequency <= frequencyOfValue[frequencyIndex]) {
+				value = diceValue[frequencyIndex];
+				frequency = frequencyOfValue[frequencyIndex];
+			}
+		}
+		roundScore = parseFloat((frequencyOfValue[0] + frequency).toString() + value.toString()) ;
+	}
+	console.log(finalResultModulo)
+	return roundScore
+}
 //getNumber();
 //console.log(rollMultipleDize(6,5))
 //rollAgain(rollMultipleDize(6,5))
 //console.log(rollAgain(rollMultipleDize(6,5)))
-fullDiceGame()
+//fullDiceGame()
+var temptest = rollMultipleDize(12,5);
+console.log(temptest);
+console.log(getRoundScoreModulo(temptest,6));
