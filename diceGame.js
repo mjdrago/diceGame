@@ -13,7 +13,6 @@ function rollMultipleDize(numberOfSides, numberOfDice) {
 	for (var roll = 0; roll < numberOfDice; roll++) {
 		rollResults.push(rollDice(numberOfSides));
 	}
-	//console.log(rollResults)
 	return rollResults;
 }
 
@@ -217,14 +216,6 @@ function getRoundScoreModulo(finalResult,modulo) {
 		}
 		roundScore = parseFloat((frequencyOfValue[0] + frequency).toString() + value.toString()) ;
 	}
-	console.log(finalResultModulo)
 	return roundScore
 }
-//getNumber();
-//console.log(rollMultipleDize(6,5))
-//rollAgain(rollMultipleDize(6,5))
-//console.log(rollAgain(rollMultipleDize(6,5)))
-//fullDiceGame()
-var temptest = rollMultipleDize(12,5);
-console.log(temptest);
-console.log(getRoundScoreModulo(temptest,6));
+fullDiceGame()
