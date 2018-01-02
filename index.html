@@ -4,7 +4,27 @@
 	<title></title>
 </head>
 <body>
-
+	<h1>The Most Epic Nerby Bar Dice Game</h1>
+	<h3>Rules:</h3>
+	<ul>
+		<li>Two players face off against each other.</li>
+		<li>Standard bar dice rules apply</li>
+		<li>Five dice will be rolled up to three times to get the highest score.</li>
+		<li>To score one or more of the five dice must be a '1'.</li>
+		<li>The score is determined by the number of '1's rolled plus the highest instance of another rolled dice</li>
+		<li>For example if for 5 six-sided dice you rolled a 1,1,3,3,4 your score will be 43 (2 '1's + 2 '3's equals 4 with the number your chose being the second digit).</li>
+		<li>Another example would be 1,1,2,4,6 which would give you a score of 36</li>
+		<li>In between rolls you are given the option to keep whichever dice you want from your roll and re-roll the rest of the dice.</li>
+		<li>Six round will be played using 4-sided die in the first round, then 6-sided, 8-sided, 10-sided, 12-sided and 20-sided</li>
+		<li>For the 4-sided and 6-sided round the numbers on the dice themselves will be used to determined the score.</li>
+		<li>For the 8,10,12,20 sided die the remainder when divided by a smaller number will be used to keep the score.</li>
+		<li>For the 8-sided die the divisor will be 4. For the 12-sided die the divisor will be 6. For the other two the divisor will be 5.</li>
+		<li>For example for the 12 sided die rolling a 7 will be the same as rolling as 1 as 7 % 6 = 1</li>
+		<li>When the remainder is 0 the divisor will be the score (for the 12-sided die rolling a 12 is the same a rolling a 6).</li>
+		<li>The dice roll will be visible in the console.</li>
+		<li>The score will be determined internally and the winner will be announced at the end of all rounds</li>
+	</ul>
+	<button onclick="fullDiceGame()">Start Dice Game</button>
 	<script type="text/javascript" src="diceGame.js"></script>
 </body>
 </html>

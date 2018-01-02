@@ -218,4 +218,4 @@ function getRoundScoreModulo(finalResult,modulo) {
 	}
 	return roundScore
 }
-fullDiceGame()
+//fullDiceGame()
